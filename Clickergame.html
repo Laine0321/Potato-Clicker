@@ -1,0 +1,50 @@
+﻿
+<html>
+<head>
+	<title>Clicker Game</title>
+	<script type="text/javascript">
+		var totalClicks = 0;
+		var clicksPerSecond = 0;
+		var clickInterval;
+		var itemPrice = 10;
+
+		function clickButton() {
+			totalClicks++;
+			document.getElementById("total-clicks").innerHTML = totalClicks;
+		}
+
+		function startAutoClicker() {
+			clicksPerSecond++;
+			document.getElementById("clicks-per-second").innerHTML = clicksPerSecond;
+		}
+
+		function buyItem() {
+			if (totalClicks >= itemPrice) {
+				totalClicks -= itemPrice;
+				itemPrice += 5;
+				clicksPerSecond++;
+				document.getElementById("total-clicks").innerHTML = totalClicks;
+				document.getElementById("item-price").innerHTML = itemPrice;
+				document.getElementById("clicks-per-second").innerHTML = clicksPerSecond;
+			} else {
+				alert("Oops, looks like you dont have egnough potatoes, keep clicking!");
+			}
+		}
+
+		function startGame() {
+			clickInterval = setInterval(function() {
+				totalClicks += clicksPerSecond;
+				document.getElementById("total-clicks").innerHTML = totalClicks;
+			}, 1000);
+		}
+	</script>
+</head>
+<body onload="startGame()">
+	<h1>Clicker Game</h1>
+	<p>Total potatoess: <span id="total-clicks">0</span></p>
+	<p>Potatoes per second: <span id="clicks-per-second">0</span></p>
+	<p>Upgrade price: <span id="item-price">10</span></p>
+	<button onclick="clickButton()">Click</button>
+	<button onclick="buyItem()">Buy upgrade</button>
+</body>
+</html>
