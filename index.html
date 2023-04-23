@@ -2,59 +2,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Potato Clicker</title>
-	<style>
-		body {
-			margin: 0;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			background-color: #6b442e;
-		}
+  <title>Potato Clicker</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #6b442e;
+    }
 
-		.game-container {
-			text-align: center;
-		}
-	</style>
-	<script type="text/javascript">
-		let totalClicks = 0;
-		let clicksPerSecond = 0;
-		let itemPrice = 10;
+    .game-container {
+      text-align: center;
+    }
+  </style>
+  <script type="text/javascript">
+    let totalClicks = 0;
+    let clicksPerSecond = 0;
+    let item1Price = 10;
+    let item2Price = 50;
+    let item3Price = 100;
+    let item1Multiplier = 1;
+    let item2Multiplier = 5;
+    let item3Multiplier = 10;
 
-		function startGame() {
-			setInterval(updateClicksPerSecond, 1000);
-		}
+    function startGame() {
+      setInterval(updateClicksPerSecond, 1000);
+      setInterval(addAutoClicks, 1000);
+    }
 
-		function clickButton() {
-			totalClicks++;
-			document.getElementById("total-clicks").innerHTML = totalClicks;
-		}
+    function clickButton() {
+      totalClicks += item1Multiplier;
+      document.getElementById("total-clicks").innerHTML = totalClicks;
+    }
 
-		function updateClicksPerSecond() {
-			clicksPerSecond = Math.floor(totalClicks / 10);
-			document.getElementById("clicks-per-second").innerHTML = clicksPerSecond;
-		}
+    function updateClicksPerSecond() {
+      clicksPerSecond = Math.floor(totalClicks / 10);
+      document.getElementById("clicks-per-second").innerHTML = clicksPerSecond;
+    }
 
-		function buyItem() {
-			if (totalClicks >= itemPrice) {
-				totalClicks -= itemPrice;
-				itemPrice += 5;
-				document.getElementById("total-clicks").innerHTML = totalClicks;
-				document.getElementById("item-price").innerHTML = itemPrice;
-			}
-		}
-	</script>
+    function buyItem1() {
+      if (totalClicks >= item1Price) {
+        totalClicks -= item1Price;
+        item1Price += 5;
+        item1Multiplier += 1;
+        document.getElementById("total-clicks").innerHTML = totalClicks;
+        document.getElementById("item1-price").innerHTML = item1Price;
+        document.getElementById("item1-multiplier").innerHTML = item1Multiplier;
+      }
+    }
+
+    function buyItem2() {
+      if (totalClicks >= item2Price) {
+        totalClicks -= item2Price;
+        item2Price += 10;
+        item2Multiplier += 5;
+        document.getElementById("total-clicks").innerHTML = totalClicks;
+        document.getElementById("item2-price").innerHTML = item2Price;
+        document.getElementById("item2-multiplier").innerHTML = item2Multiplier;
+      }
+    }
+
+    function buyItem3() {
+      if (totalClicks >= item3Price) {
+        totalClicks -= item3Price;
+        item3Price += 20;
+        item3Multiplier += 10;
+        document.getElementById("total-clicks").innerHTML = totalClicks;
+        document.getElementById("item3-price").innerHTML = item3Price;
+        document.getElementById("item3-multiplier").innerHTML = item3Multiplier;
+      }
+    }
+
+    function addAutoClicks() {
+      totalClicks += clicksPerSecond * item2Multiplier;
+      document.getElementById("total-clicks").innerHTML = totalClicks;
+    }
+  </script>
 </head>
 <body onload="startGame()">
-	<div class="game-container">
-		<h1>Potato clicker</h1>
-		<p>Total potatoes: <span id="total-clicks">0</span></p>
-		<p>Potatoes per second: <span id="clicks-per-second">0</span></p>
-		<p>Upgrade Price: <span id="item-price">10</span></p>
-		<button onclick="clickButton()">||| Click |||</button>
-		<button onclick="buyItem()">Buy Upgrade</button>
-	</div>
-</body>
-</html>
+  <div class="game-container">
+    <h1>Potato clicker</h1>
+    <p>Total potatoes: <span id="total-clicks">0</span></p>
+    <p>Potatoes per second: <span id="clicks-per-second">0</span></p>
+    <p>Upgrade 1: <span id="item1-price">10</span> clicks (<span id="item1-multiplier">1</span> click per purchase)</p>
+    <button onclick="clickButton()">|||| Click ||||</button>
+    <button onclick="buyItem1()">Buy upgrade 1</button>
+    <br><br>
+    <p>Item 2: <span
+
 
